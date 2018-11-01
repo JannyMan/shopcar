@@ -1,8 +1,16 @@
 <template>
   <div class="hello">
+    <ul v-for="item in products" :key="item.id">
+      <li>{{item.name}}</li>
+      <li>{{item.id}}</li>
+      <li><span class="add" v-on:click="add($event,{id: item.id, name: item.name})">+</span>
+          <span class="text" v-if="shopcar.length != 0">{{shopcar}}</span>
+          <span class="subtract" v-on:click="subtract($event,{id: item.id, name: item.name})">-</span>
+      </li>
+    </ul>
     <span class="add" v-on:click="add">+</span>
-    <span class="text">{{counts}}</span>
-    <span class="jian" v-on:click="jian">-</span>
+    <span class="text">{{shopcar}}</span>
+    <span class="subtract" v-on:click="subtract">-</span>
   </div>
 </template>
 
@@ -16,19 +24,18 @@ export default {
     }
   },
   computed: mapState({
-    counts: state => state.shopcar
+    shopcar: state => state.shopcar,
+    products: state => state.products
   }),
   methods: {
-    add(){
-      //this.$store.commit('increment', {counts: 1, id: parseInt(Math.random()*100000), name:'蛋炒饭'})
-      this.$store.commit('increment', {counts: 1, id: 1000001, name:'蛋炒饭'})
+    add(e, obj){
+      this.$store.commit('increment', {counts: 1, id: obj.id, name:obj.name})
     },
-    jian(){
-      this.$store.commit('jian',  {counts: 1, id: 1000001, name:'蛋炒饭'})
+    subtract(e, obj){
+      this.$store.commit('subtract',  {counts: 1, id: obj.id, name:obj.name})
     }
   },
   created(){
-      
   }
 }
 </script>
@@ -46,7 +53,7 @@ span{
   padding: 30px;
   font-size: 30px;
 }
-.jian{
+.subtract{
   padding: 30px;
   font-size: 30px;
 }

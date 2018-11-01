@@ -4,30 +4,45 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
-      shopcar: []
+        products:[
+            {
+                id:100001,
+                counts:0,
+                name:'蛋炒饭'
+            },
+            {
+                id:526532,
+                counts:0,
+                name:'酸菜鱼'
+            },
+            {
+                id:1023232,
+                counts:0,
+                name:'水煮肉片'
+            }
+        ],
+        shopcar: []
     },
     mutations: {
         increment (state, obj) {
-            console.log(state.shopcar)
-            let a = state.shopcar.findIndex(x => x.id == obj.id)
-            console.log(state['shopcar'][a])
-            if(a != -1){
-                let arrobj = state['shopcar'][a]
-                arrobj.counts++
-            }else if(a == -1){
+            if(state.shopcar.findIndex(x => x.id == obj.id) != -1){
+                state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts'] ++
+            }else if(state.shopcar.findIndex(x => x.id == obj.id) == -1){
                 state.shopcar.push(obj)
             }
-        },
-        jian (state, obj) {
+            state['products'][state.products.findIndex(x => x.id == obj.id)]['counts'] = state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts']
             console.log(state.shopcar)
-            let a = state.shopcar.findIndex(x => x.id == obj.id)
-            console.log(state['shopcar'][a])
-            if(a != -1){
-                let arrobj = state['shopcar'][a]
-                arrobj.counts--
-            }else if(a == -1){
+            console.log(state.products)
+        },
+        subtract (state, obj) {
+            console.log(state.shopcar)
+            if(state.shopcar.findIndex(x => x.id == obj.id) != -1){
+                state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts'] --
+            }else if(state.shopcar.findIndex(x => x.id == obj.id) == -1){
                 //state.shopcar.push(obj)
             }
+            state['products'][state.products.findIndex(x => x.id == obj.id)]['counts'] = state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts']
+
         }
     }
   })
