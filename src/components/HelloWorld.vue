@@ -4,13 +4,13 @@
       <li>{{item.name}}</li>
       <li>{{item.id}}</li>
       <li><span class="add" v-on:click="add($event,{id: item.id, name: item.name})">+</span>
-          <span class="text" v-if="shopcar.length != 0">{{shopcar}}</span>
+          <span class="text" v-if="shopcar.length != 0">{{item.counts}}</span>
           <span class="subtract" v-on:click="subtract($event,{id: item.id, name: item.name})">-</span>
       </li>
     </ul>
-    <span class="add" v-on:click="add">+</span>
+    <!-- <span class="add" v-on:click="add">+</span>
     <span class="text">{{shopcar}}</span>
-    <span class="subtract" v-on:click="subtract">-</span>
+    <span class="subtract" v-on:click="subtract">-</span> -->
   </div>
 </template>
 
@@ -30,9 +30,11 @@ export default {
   methods: {
     add(e, obj){
       this.$store.commit('increment', {counts: 1, id: obj.id, name:obj.name})
+      this.$forceUpdate()
     },
     subtract(e, obj){
       this.$store.commit('subtract',  {counts: 1, id: obj.id, name:obj.name})
+      this.$forceUpdate();
     }
   },
   created(){

@@ -7,17 +7,17 @@ const store = new Vuex.Store({
         products:[
             {
                 id:100001,
-                counts:0,
+                //counts:0,
                 name:'蛋炒饭'
             },
             {
                 id:526532,
-                counts:0,
+                //counts:0,
                 name:'酸菜鱼'
             },
             {
                 id:1023232,
-                counts:0,
+                //counts:0,
                 name:'水煮肉片'
             }
         ],
@@ -30,7 +30,9 @@ const store = new Vuex.Store({
             }else if(state.shopcar.findIndex(x => x.id == obj.id) == -1){
                 state.shopcar.push(obj)
             }
-            state['products'][state.products.findIndex(x => x.id == obj.id)]['counts'] = state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts']
+            'counts' in state['products'][state.products.findIndex(x => x.id == obj.id)] ? state['products'][state.products.findIndex(x => x.id == obj.id)]['counts']++ : state['products'][state.products.findIndex(x => x.id == obj.id)]['counts'] = state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts']
+            
+            
             console.log(state.shopcar)
             console.log(state.products)
         },
@@ -42,7 +44,6 @@ const store = new Vuex.Store({
                 //state.shopcar.push(obj)
             }
             state['products'][state.products.findIndex(x => x.id == obj.id)]['counts'] = state['shopcar'][state.shopcar.findIndex(x => x.id == obj.id)]['counts']
-
         }
     }
   })
