@@ -4,8 +4,8 @@
       <li>{{item.name}}</li>
       <li>{{item.id}}</li>
       <li><span class="add" v-on:click="add($event,{id: item.id, name: item.name})">+</span>
-          <span class="text" v-if="shopcar.length != 0">{{item.counts}}</span>
-          <span class="subtract" v-on:click="subtract($event,{id: item.id, name: item.name})">-</span>
+          <span class="text" v-if="shopcar.length != 0" v-show="item.counts > 0">{{item.counts}}</span>
+          <span class="subtract"  v-show="item.counts > 0" v-on:click="subtract($event,{id: item.id, name: item.name})">-</span>
       </li>
     </ul>
     <!-- <span class="add" v-on:click="add">+</span>
